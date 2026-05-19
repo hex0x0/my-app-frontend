@@ -1,0 +1,208 @@
+.aboutContainer {
+	width: 33.33vw;
+	min-width: 500px;
+	padding: 20px 40px 40px 40px;
+	margin: 0 auto;
+	margin-top: 20px;
+	box-shadow:
+		0 4px 6px rgba(0, 0, 0, 0.1),
+		0 1px 3px rgba(0, 0, 0, 0.08),
+		0 0 0 1px rgba(0, 0, 0, 0.05);
+	border-radius: 8px;
+	box-sizing: border-box;
+}
+
+.aboutSection {
+	margin-bottom: 30px;
+}
+
+.aboutSection:first-child {
+	margin-top: 0;
+}
+
+.aboutSection:last-child {
+	margin-bottom: 0;
+}
+
+.aboutSectionTitle {
+	font-size: 1.8em;
+	font-weight: bold;
+	margin-top: 0;
+	margin-bottom: 0.8em;
+	padding-bottom: 0.3em;
+	border-bottom: 2px solid #eaecef;
+	color: #1a1a1a;
+}
+
+.timeline {
+	position: relative;
+	padding-left: 40px;
+}
+
+/* Timeline vertical line */
+.timeline::before {
+	content: "";
+	position: absolute;
+	left: 9px;
+	top: 12px;
+	bottom: 12px;
+	width: 2px;
+	background: linear-gradient(180deg, #007bff 0%, #00c6ff 100%);
+}
+
+.timelineItem {
+	position: relative;
+	margin-bottom: 35px;
+	padding-left: 30px;
+}
+
+.timelineItem:last-child {
+	margin-bottom: 0;
+}
+
+/* Timeline marker (dot) */
+.timelineMarker {
+	position: absolute;
+	left: -36px;
+	top: 6px;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: #fff;
+	border: 3px solid #007bff;
+	box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+	z-index: 1;
+	transition: all 0.3s ease;
+}
+
+.timelineItem:hover .timelineMarker {
+	transform: scale(1.2);
+	box-shadow: 0 0 0 6px rgba(0, 123, 255, 0.15);
+}
+
+.timelineContent {
+	background: #fff;
+	border-radius: 8px;
+	padding: 20px 24px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	transition: all 0.3s ease;
+	border-left: 3px solid #007bff;
+}
+
+.timelineItem:hover .timelineContent {
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+	transform: translateX(5px);
+}
+
+.timelineDate {
+	font-size: 14px;
+	color: #666;
+	font-weight: 500;
+	margin-bottom: 8px;
+	letter-spacing: 0.5px;
+}
+
+.timelineCompany {
+	font-size: 22px;
+	font-weight: 700;
+	color: #1a1a1a;
+	margin-bottom: 6px;
+}
+
+.timelineRole {
+	font-size: 16px;
+	color: #555;
+	font-weight: 500;
+}
+
+.contactInfo {
+	padding: 0;
+	margin-top: 0;
+}
+
+.contactItem {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 20px;
+	line-height: 1.6;
+}
+
+.contactIcon {
+	display: inline-flex;
+	align-items: center;
+}
+
+.contactIcon .label {
+	font-size: 20px;
+	color: #555;
+	font-weight: 600;
+	min-width: 60px;
+}
+
+.contactLink {
+	font-size: 20px;
+	color: #333;
+	font-weight: 400;
+	letter-spacing: 0.3px;
+}
+
+@media (max-width: 768px) {
+	.aboutContainer {
+		width: calc(100% - 30px);
+		min-width: unset;
+		padding: 16px 20px 30px 20px;
+		margin-top: 12px;
+	}
+
+	.aboutSectionTitle {
+		font-size: 1.4em;
+	}
+
+	.timelineContent {
+		padding: 14px 16px;
+	}
+
+	.timelineCompany {
+		font-size: 18px;
+	}
+
+	.timelineRole {
+		font-size: 14px;
+	}
+
+	.contactItem {
+		font-size: 16px;
+		flex-wrap: wrap;
+	}
+
+	.contactIcon .label {
+		font-size: 16px;
+	}
+
+	.contactLink {
+		font-size: 16px;
+	}
+}
+
+@media (max-width: 480px) {
+	.aboutContainer {
+		width: calc(100% - 20px);
+		padding: 14px 14px 24px 14px;
+		margin-top: 10px;
+		border-radius: 6px;
+	}
+
+	.timeline {
+		padding-left: 30px;
+	}
+
+	.timelineItem {
+		padding-left: 20px;
+		margin-bottom: 24px;
+	}
+
+	.timelineItem:hover .timelineContent {
+		transform: translateX(3px);
+	}
+}

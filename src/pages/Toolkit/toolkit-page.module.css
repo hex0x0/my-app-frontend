@@ -1,0 +1,113 @@
+.toolkitContainer {
+	width: 33.33vw;
+	min-width: 500px;
+	padding: 20px 40px 40px 40px;
+	margin: 0 auto;
+	margin-top: 20px;
+	box-shadow:
+		0 4px 6px rgba(0, 0, 0, 0.1),
+		0 1px 3px rgba(0, 0, 0, 0.08),
+		0 0 0 1px rgba(0, 0, 0, 0.05);
+	border-radius: 8px;
+	box-sizing: border-box;
+}
+
+.toolkitTitle {
+	font-size: 1.8em;
+	font-weight: bold;
+	margin-top: 0;
+	margin-bottom: 0.8em;
+	padding-bottom: 0.3em;
+	border-bottom: 2px solid #eaecef;
+	color: #1a1a1a;
+}
+
+.toolkitLinks {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.toolkitLinkItem {
+	display: flex;
+	align-items: center;
+	padding: 20px;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	border-radius: 12px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+	text-decoration: none;
+}
+
+.toolkitLinkItem:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.toolkitLinkItem:nth-child(1) {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.toolkitLinkItem:nth-child(2) {
+	background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.toolkitLinkItem:nth-child(3) {
+	background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.toolkitLinkIcon {
+	font-size: 2rem;
+	margin-right: 15px;
+}
+
+.toolkitLinkText {
+	font-size: 1.2rem;
+	color: white;
+	font-weight: 500;
+	text-decoration: none;
+}
+
+@media (max-width: 768px) {
+	.toolkitContainer {
+		width: calc(100% - 30px);
+		min-width: unset;
+		padding: 16px 20px 30px 20px;
+		margin-top: 12px;
+	}
+
+	.toolkitTitle {
+		font-size: 1.4em;
+	}
+
+	.toolkitLinkItem {
+		padding: 16px;
+	}
+
+	.toolkitLinkIcon {
+		font-size: 1.6rem;
+		margin-right: 12px;
+	}
+
+	.toolkitLinkText {
+		font-size: 1.05rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.toolkitContainer {
+		width: calc(100% - 20px);
+		padding: 14px 14px 24px 14px;
+		margin-top: 10px;
+		border-radius: 6px;
+	}
+
+	.toolkitLinkItem {
+		padding: 14px;
+		border-radius: 10px;
+	}
+
+	.toolkitLinks {
+		gap: 14px;
+	}
+}

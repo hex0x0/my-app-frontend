@@ -1,0 +1,38 @@
+{
+	"language": {
+		"select": "语言",
+		"en": "English",
+		"zh": "中文"
+	},
+	"nav": {
+		"home": "首页",
+		"blogs": "博客",
+		"about": "关于",
+		"toolkit": "工具箱"
+	},
+	"home": {
+		"title": "hex0x0空间",
+		"l1Heading": "欢迎访问！",
+		"l2Heading": "这是一个主页。"
+	},
+	"blog": {
+		"title": "$t(nav.blogs) - hex0x0空间",
+		"blogList": "博客列表",
+		"toc": "目录"
+	},
+	"about": {
+		"title": "$t(nav.about) - hex0x0空间",
+		"experience": "经历",
+		"contact": "联系方式",
+		"email": "邮箱：",
+		"present": "2026-05 - 现在",
+		"alibaba": "阿里巴巴",
+		"byteDance": "字节跳动",
+		"softwareEngineer": "软件开发工程师",
+		"selfEmployment": "自由职业"
+	},
+	"toolkit": {
+		"title": "$t(nav.toolkit) - hex0x0空间",
+		"heading": "工具箱"
+	}
+}

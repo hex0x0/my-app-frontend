@@ -1,0 +1,38 @@
+{
+	"language": {
+		"select": "Language",
+		"en": "English",
+		"zh": "中文"
+	},
+	"nav": {
+		"home": "Home",
+		"blogs": "Blogs",
+		"about": "About",
+		"toolkit": "Toolkit"
+	},
+	"home": {
+		"title": "hex0x0空间",
+		"l1Heading": "Welcome!",
+		"l2Heading": "This is the homepage."
+	},
+	"blog": {
+		"title": "$t(nav.blogs) - hex0x0空间",
+		"blogList": "Blog List",
+		"toc": "Table of Content"
+	},
+	"about": {
+		"title": "$t(nav.about) - hex0x0空间",
+		"experience": "Experience",
+		"contact": "Contact Info",
+		"email": "Email: ",
+		"present": "2026-05 - Present",
+		"alibaba": "Alibaba Group",
+		"byteDance": "ByteDance",
+		"softwareEngineer": "Software Engineer",
+		"selfEmployment": "Self-employment"
+	},
+	"toolkit": {
+		"title": "$t(nav.toolkit) - hex0x0空间",
+		"heading": "Toolkit"
+	}
+}
