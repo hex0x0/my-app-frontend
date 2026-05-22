@@ -4,7 +4,7 @@ import MarkdownRender from "@/components/MarkdownRender/MarkdownRender";
 import { prodPathToTitleMap } from "@/pages/Blogs/constants";
 import { ENV } from "@/config/env";
 
-export default function MarkdownFetcher(): React.ReactElement {
+export default function BlogDetail(): React.ReactElement {
 	const params = useParams<{ path: string }>();
 	const [markdown, setMarkdown] = useState<string>("");
 
@@ -20,7 +20,7 @@ export default function MarkdownFetcher(): React.ReactElement {
 					body = module.default;
 				} else {
 					const response = await fetch(
-						`${ENV.OBJECT_STORAGE_URL}/blog/${path}.md`,
+						`${ENV.OBJECT_STORAGE_URL}/blogs/${path}.md`,
 					);
 					body = await response.text();
 				}
