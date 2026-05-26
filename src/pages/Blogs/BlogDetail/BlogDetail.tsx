@@ -6,7 +6,7 @@ import { ENV } from "@/config/env";
 
 export default function BlogDetail(): React.ReactElement {
 	const params = useParams<{ path: string }>();
-	const [markdown, setMarkdown] = useState<string>("");
+	const [mdContent, setMdContent] = useState<string>("");
 
 	useEffect(() => {
 		const loadBlog = async (path: string | undefined) => {
@@ -25,19 +25,19 @@ export default function BlogDetail(): React.ReactElement {
 					body = await response.text();
 				}
 
-				setMarkdown(body);
+				setMdContent(body);
 			} catch (e) {
 				console.error("Failed to fetch markdown:", e);
-				setMarkdown("# Failed to fetch markdown");
+				setMdContent("# Failed to fetch markdown");
 			}
 		};
 
 		loadBlog(params.path);
 	}, [params.path]);
 
-	const title = params.path
+	const mdTitle = params.path
 		? prodPathToTitleMap.get(params.path) || params.path
 		: "Untitled";
 
-	return <MarkdownRender title={title} markdown={markdown} />;
+	return <MarkdownRender mdTitle={mdTitle} mdContent={mdContent} />;
 }

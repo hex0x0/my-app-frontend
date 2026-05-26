@@ -20,8 +20,8 @@ interface CodeBlockProps {
 }
 
 interface MarkdownRenderProps {
-	title: string;
-	markdown: string;
+	mdTitle: string;
+	mdContent: string;
 }
 
 interface TocHeading {
@@ -101,29 +101,16 @@ function extractTocHeadings(markdown: string): TocHeading[] {
 }
 
 export default function MarkdownRender({
-	title,
-	markdown,
+	mdTitle: mdTitle,
+	mdContent: mdContent,
 }: MarkdownRenderProps): React.ReactElement {
-	// Extract first H1 heading from markdown for the page title
-	const extractedH1 = useMemo(() => {
-		const lines = markdown.split(/\r?\n/);
-		const h1Match = lines.find((line) => line.match(/^#\s+(.*)$/));
-		if (h1Match) {
-			const match = h1Match.match(/^#\s+(.*)$/);
-			return match ? stripMarkdownSyntax(match[1]) : null;
-		}
-		return null;
-	}, [markdown]);
-
 	const { t } = useTranslation();
 
-	// Set page title to extracted H1 or fall back to provided title
 	useEffect(() => {
-		const baseTitle = extractedH1 || title;
-		document.title = `${baseTitle} - hex0x0空间`;
-	}, [extractedH1, title]);
+		document.title = `${mdTitle} - hex0x0空间`;
+	}, [mdTitle]);
 
-	const headings = useMemo(() => extractTocHeadings(markdown), [markdown]);
+	const headings = useMemo(() => extractTocHeadings(mdContent), [mdContent]);
 	const tocHeadings = useMemo(() => {
 		const nestedHeadings = headings.filter(
 			(heading) => heading.level >= 2 && heading.level <= 4,
@@ -173,7 +160,7 @@ export default function MarkdownRender({
 						},
 					}}
 				>
-					{markdown}
+					{mdContent}
 				</ReactMarkdown>
 			</div>
 		</div>
