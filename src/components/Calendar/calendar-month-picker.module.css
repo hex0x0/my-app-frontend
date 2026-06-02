@@ -1,0 +1,181 @@
+.calendarSelectContainer {
+	position: relative;
+	width: 100%;
+}
+
+.selectButton {
+	width: 100%;
+	padding: 8px 12px;
+	border: 2px solid #e1e4e8;
+	border-radius: 6px;
+	background-color: #ffffff;
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 14px;
+	transition: all 0.3s ease;
+	text-align: left;
+}
+
+.selectButton:hover {
+	border-color: #c8cdd3;
+}
+
+.selectButton:focus {
+	outline: none;
+	border-color: #0366d6;
+	box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.1);
+}
+
+.selectValue {
+	color: #24292e;
+	flex: 1;
+}
+
+.selectButton:not(:focus) .selectValue:empty::before {
+	content: attr(data-placeholder);
+	color: #95a5a6;
+}
+
+.selectArrow {
+	color: #6a737d;
+	font-size: 10px;
+	margin-left: 8px;
+	transition: transform 0.2s ease;
+}
+
+.dropdown {
+	position: absolute;
+	top: calc(100% + 4px);
+	left: 0;
+	right: 0;
+	background-color: #ffffff;
+	border: 2px solid #e1e4e8;
+	border-radius: 6px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+	z-index: 1000;
+	padding: 12px;
+	animation: dropdownFadeIn 0.2s ease;
+}
+
+@keyframes dropdownFadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(-8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.yearSelector {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 12px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid #e1e4e8;
+}
+
+.yearArrow {
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 16px;
+	color: #0366d6;
+	padding: 4px 8px;
+	border-radius: 4px;
+	transition: all 0.2s ease;
+}
+
+.yearArrow:hover:not(:disabled) {
+	background-color: #f6f8fa;
+	color: #0256c7;
+}
+
+.yearArrow:disabled {
+	color: #d1d5da;
+	cursor: not-allowed;
+}
+
+.yearDisplay {
+	font-size: 16px;
+	font-weight: 600;
+	color: #24292e;
+	min-width: 60px;
+	text-align: center;
+}
+
+.monthGrid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 8px;
+}
+
+.monthButton {
+	padding: 10px 8px;
+	border: 1px solid #e1e4e8;
+	border-radius: 6px;
+	background-color: #ffffff;
+	cursor: pointer;
+	font-size: 13px;
+	font-weight: 500;
+	color: #24292e;
+	transition: all 0.2s ease;
+}
+
+.monthButton:hover:not(:disabled) {
+	background-color: #f6f8fa;
+	border-color: #0366d6;
+	color: #0366d6;
+}
+
+.monthButton.selected {
+	background-color: #0366d6;
+	color: #ffffff;
+	border-color: #0366d6;
+	font-weight: 600;
+}
+
+.monthButton.selected:hover {
+	background-color: #0256c7;
+	border-color: #0256c7;
+}
+
+.monthButton.disabled {
+	background-color: #fafbfc;
+	color: #d1d5da;
+	cursor: not-allowed;
+	border-color: #e1e4e8;
+}
+
+.monthButton:disabled {
+	opacity: 0.5;
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+	.dropdown {
+		padding: 10px;
+	}
+
+	.monthGrid {
+		gap: 6px;
+	}
+
+	.monthButton {
+		padding: 8px 6px;
+		font-size: 12px;
+	}
+
+	.yearDisplay {
+		font-size: 14px;
+	}
+
+	.yearArrow {
+		font-size: 14px;
+		padding: 4px 6px;
+	}
+}

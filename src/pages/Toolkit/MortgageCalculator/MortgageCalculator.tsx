@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import CalendarMonthPicker from "@/components/Calendar/CalendarMonthPicker";
 import styles from "./mortgage-calculator-page.module.css";
 
 interface MonthlyInstalment {
@@ -98,7 +99,9 @@ function MortgageCalculator(): React.ReactElement {
 			);
 
 			// after extra payment
-			const newMortgageAmountNum = mortgageAmountNum - mortgageAmountNum / mortgageTermNum - Number(extraPaymentAmount);
+			const newMortgageAmountNum = mortgageAmountNum -
+				mortgageAmountNum / mortgageTermNum * repaymentMonthsBeforeExtraPay -
+				Number(extraPaymentAmount);
 
 			const newMortgageTermNum = mortgageTermNum - repaymentMonthsBeforeExtraPay;
 
@@ -236,12 +239,12 @@ function MortgageCalculator(): React.ReactElement {
 				<div className={styles.container}>
 					<div className={styles.left}>{t('toolkit.mortgageCalculator.extraPaymentDate')}</div>
 					<div className={styles.input}>
-						<input
-							className={styles.inputText}
-							type="month"
+						<CalendarMonthPicker
 							value={extraPaymentDateInput}
-							onChange={(e) => setExtraPaymentDateInput(e.target.value)}
-						></input>
+							onChange={(value) => setExtraPaymentDateInput(value)}
+							minDate={new Date(currentDate.getFullYear(), currentDate.getMonth() + 1)}
+							placeholder={t('toolkit.mortgageCalculator.selectMonth') || 'Select month'}
+						/>
 					</div>
 				</div>
 				<div className={styles.container}>
