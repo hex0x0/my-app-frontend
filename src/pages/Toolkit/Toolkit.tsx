@@ -12,17 +12,21 @@ export default function Toolkit(): React.ReactElement {
 
 	return (
 		<div className={styles.toolkitContainer}>
-			<div className={styles.toolkitTitle}>{t("toolkit.heading")}</div>
-			<div className={styles.toolkitLinks}>
-				<Link to={"investment-dashboard"} className={styles.toolkitLinkItem}>
-					<span className={styles.toolkitLinkIcon}>📈</span>
-					<span className={styles.toolkitLinkText}>投资数据看板</span>
-				</Link>
-				<Link to={"mortgage-calculator"} className={styles.toolkitLinkItem}>
-					<span className={styles.toolkitLinkIcon}>💰</span>
-					<span className={styles.toolkitLinkText}>提前还贷计算器</span>
-				</Link>
-			</div>
+			<h1 className={styles.toolkitTitle}>{t("toolkit.heading")}</h1>
+			<ul className={styles.toolkitLinks}>
+				<li className={styles.toolkitItem}>
+					<Link to={"investment-dashboard"} className={styles.toolkitLinkItem}>
+						<span className={styles.toolkitLinkIcon}>📈</span>
+						<span className={styles.toolkitLinkText}>投资数据看板</span>
+					</Link>
+				</li>
+				<li className={styles.toolkitItem}>
+					<Link to={"mortgage-calculator"} className={styles.toolkitLinkItem}>
+						<span className={styles.toolkitLinkIcon}>💰</span>
+						<span className={styles.toolkitLinkText}>提前还贷计算器</span>
+					</Link>
+				</li>
+			</ul>
 		</div>
 	);
 }

@@ -1,18 +1,30 @@
+.pageContainer {
+	width: 33.33vw;
+	min-width: 500px;
+	padding: 20px 40px 40px 40px;
+	margin: 0 auto;
+	margin-top: 20px;
+	box-shadow:
+		0 4px 6px rgba(0, 0, 0, 0.1),
+		0 1px 3px rgba(0, 0, 0, 0.08),
+		0 0 0 1px rgba(0, 0, 0, 0.05);
+	border-radius: 8px;
+	box-sizing: border-box;
+	background-color: #ffffff;
+}
+
 .title {
-	text-align: center;
-	margin: 30px 0;
+	font-size: 1.8em;
 	font-weight: bold;
-	font-size: 2em;
-	color: #2c3e50;
+	margin-top: 0;
+	margin-bottom: 0.8em;
+	padding-bottom: 0.3em;
+	border-bottom: 2px solid #eaecef;
+	color: #1a1a1a;
 }
 
 .calculatorForm {
-	max-width: 600px;
-	margin: 30px auto;
-	padding: 30px;
-	background: #ffffff;
-	border-radius: 12px;
-	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+	margin: 20px 0;
 }
 
 .container {
@@ -37,16 +49,17 @@
 .inputText {
 	width: 100%;
 	padding: 8px 12px;
-	border: 2px solid #e0e0e0;
+	border: 2px solid #e1e4e8;
 	border-radius: 6px;
 	font-size: 14px;
 	transition: all 0.3s ease;
+	background-color: #ffffff;
 }
 
 .inputText:focus {
 	outline: none;
-	border-color: #667eea;
-	box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+	border-color: #0366d6;
+	box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.1);
 }
 
 .inputText::placeholder {
@@ -64,15 +77,17 @@
 	gap: 5px;
 	cursor: pointer;
 	font-size: 14px;
+	color: #1a1a1a;
 }
 
 .selection input[type="radio"] {
 	cursor: pointer;
+	accent-color: #0366d6;
 }
 
 .right {
 	min-width: 30px;
-	color: #7f8c8d;
+	color: #6a737d;
 }
 
 .button {
@@ -83,7 +98,7 @@
 
 .button button {
 	padding: 10px 30px;
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background-color: #0366d6;
 	color: white;
 	border: none;
 	border-radius: 6px;
@@ -91,12 +106,13 @@
 	font-weight: 500;
 	cursor: pointer;
 	transition: all 0.3s ease;
-	box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+	box-shadow: 0 2px 8px rgba(3, 102, 214, 0.2);
 }
 
 .button button:hover {
+	background-color: #0256c7;
 	transform: translateY(-2px);
-	box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+	box-shadow: 0 4px 12px rgba(3, 102, 214, 0.3);
 }
 
 .button button:active {
@@ -104,42 +120,43 @@
 }
 
 .details {
-	max-width: 900px;
-	margin: 40px auto;
-	padding: 20px;
+	margin-top: 30px;
+	padding-top: 20px;
+	border-top: 2px solid #eaecef;
 }
 
 .detailTitle {
-	text-align: center;
-	font-size: 1.5em;
+	font-size: 1.4em;
 	font-weight: bold;
-	color: #2c3e50;
+	color: #1a1a1a;
+	margin-top: 0;
 	margin-bottom: 20px;
+	text-align: center;
 }
 
 .detailTable {
 	width: 100%;
 	border-collapse: collapse;
 	background: white;
-	border-radius: 8px;
+	border-radius: 6px;
 	overflow: hidden;
-	box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+	border: 1px solid #e1e4e8;
 }
 
 .detailTable th {
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-	color: #ffffff;
-	padding: 15px 10px;
+	background-color: #f6f8fa;
+	color: #24292e;
+	padding: 12px 10px;
 	font-weight: 600;
 	text-align: center;
-	border: none;
+	border-bottom: 2px solid #e1e4e8;
 }
 
 .detailTable td {
-	padding: 12px 10px;
+	padding: 10px;
 	text-align: center;
-	border-bottom: 1px solid #e0e0e0;
-	color: #2c3e50;
+	border-bottom: 1px solid #e1e4e8;
+	color: #24292e;
 }
 
 .detailTable tbody tr {
@@ -148,27 +165,27 @@
 }
 
 .detailTable tbody tr:hover {
-	background-color: #f8f9fa;
-	transform: scale(1.01);
+	background-color: #f6f8fa;
 }
 
 .detailTable tbody tr:nth-child(even) {
-	background-color: #f9fafb;
+	background-color: #fafbfc;
 }
 
 .detailTable tbody tr:nth-child(even):hover {
-	background-color: #f0f1f3;
+	background-color: #f6f8fa;
 }
 
 @media (max-width: 768px) {
-	.title {
-		font-size: 1.5em;
-		margin: 20px 0;
+	.pageContainer {
+		width: calc(100% - 30px);
+		min-width: unset;
+		padding: 16px 20px 30px 20px;
+		margin-top: 12px;
 	}
 
-	.calculatorForm {
-		padding: 15px;
-		max-width: 100%;
+	.title {
+		font-size: 1.4em;
 	}
 
 	.container {
@@ -220,8 +237,12 @@
 	}
 
 	.details {
-		padding: 10px;
-		overflow-x: auto;
+		padding-top: 15px;
+		margin-top: 20px;
+	}
+
+	.detailTitle {
+		font-size: 1.2em;
 	}
 
 	.detailTable {
@@ -231,5 +252,27 @@
 	.detailTable th,
 	.detailTable td {
 		padding: 8px 4px;
+	}
+}
+
+@media (max-width: 480px) {
+	.pageContainer {
+		width: calc(100% - 20px);
+		padding: 14px 14px 24px 14px;
+		margin-top: 10px;
+		border-radius: 6px;
+	}
+
+	.title {
+		font-size: 1.3em;
+	}
+
+	.button button {
+		padding: 8px 15px;
+		font-size: 13px;
+	}
+
+	.detailTable {
+		font-size: 11px;
 	}
 }

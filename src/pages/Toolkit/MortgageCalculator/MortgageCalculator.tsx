@@ -232,8 +232,8 @@ function RepaymentCalculator(): React.ReactElement {
 	}
 
 	return (
-		<div>
-			<div className={styles.title}>提前还贷计算器</div>
+		<div className={styles.pageContainer}>
+			<h1 className={styles.title}>提前还贷计算器</h1>
 
 			<form className={styles.calculatorForm}>
 				<div className={styles.container}>
@@ -358,7 +358,7 @@ function RepaymentCalculator(): React.ReactElement {
 
 			{isSubmitted && (
 				<div className={styles.details}>
-					<div className={styles.detailTitle}>还款明细</div>
+					<h2 className={styles.detailTitle}>还款明细</h2>
 					<div>
 						<table className={styles.detailTable}>
 							<thead>
