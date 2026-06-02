@@ -33,6 +33,33 @@
 	},
 	"toolkit": {
 		"title": "$t(nav.toolkit) - hex0x0空间",
-		"heading": "Toolkit"
+		"heading": "Toolkit",
+		"mortgageCalculator": {
+			"title": "Mortgage Calculator",
+			"mortgageAmount": "Mortgage amount",
+			"mortgageTerm": "Mortgage term",
+			"mortgageType": "Mortgage type",
+			"equalPrincipal": "Equal principal",
+			"amortization": "Amortization (WIP)",
+			"interestRate": "Interest rate",
+			"extraPaymentDate": "Extra payment date",
+			"extraPaymentAmount": "Extra payment amount",
+			"extraPaymentAmountHint": "Optional: default value is 0",
+			"newInterestRate": "New interest rate",
+			"newInterestRateHint": "Optional",
+			"cny": "Yuan",
+			"months": "Months",
+			"calculate": "Calculate",
+			"clear": "Clear",
+			"repaymentSchedule": "Repayment schedule",
+			"idx": "Index",
+			"date": "Date",
+			"monthlyInstalment": "Monthly instalment",
+			"principalPaid": "Principal paid",
+			"interestPaid": "Interest paid"
+		},
+		"investmentDashboard": {
+			"title": "Investment Dashboard (WIP)"
+		}
 	}
 }

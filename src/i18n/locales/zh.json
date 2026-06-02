@@ -33,6 +33,33 @@
 	},
 	"toolkit": {
 		"title": "$t(nav.toolkit) - hex0x0空间",
-		"heading": "工具箱"
+		"heading": "工具箱",
+		"mortgageCalculator": {
+			"title": "提前还贷计算器",
+			"mortgageAmount": "贷款金额",
+			"mortgageTerm": "贷款时长",
+			"mortgageType": "还贷方式",
+			"equalPrincipal": "等额本金",
+			"amortization": "等额本息（wip）",
+			"interestRate": "利率",
+			"extraPaymentDate": "提前还贷日期",
+			"extraPaymentAmount": "提前还贷金额",
+			"extraPaymentAmountHint": "选填：默认为0",
+			"newInterestRate": "新的利率",
+			"newInterestRateHint": "选填：默认使用当前利率",
+			"cny": "元",
+			"months": "个月",
+			"calculate": "计算",
+			"clear": "清空",
+			"repaymentSchedule": "还款计划",
+			"idx": "编号",
+			"date": "日期",
+			"monthlyInstalment": "每月还贷金额",
+			"principalPaid": "支付的本金",
+			"interestPaid": "支付的利息"
+		},
+		"investmentDashboard": {
+			"title": "投资看板 (WIP)"
+		}
 	}
 }

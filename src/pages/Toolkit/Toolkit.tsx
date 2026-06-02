@@ -15,15 +15,15 @@ export default function Toolkit(): React.ReactElement {
 			<h1 className={styles.toolkitTitle}>{t("toolkit.heading")}</h1>
 			<ul className={styles.toolkitLinks}>
 				<li className={styles.toolkitItem}>
-					<Link to={"investment-dashboard"} className={styles.toolkitLinkItem}>
-						<span className={styles.toolkitLinkIcon}>📈</span>
-						<span className={styles.toolkitLinkText}>投资数据看板</span>
+					<Link to={"mortgage-calculator"} className={styles.toolkitLinkItem}>
+						<span className={styles.toolkitLinkIcon}>💰</span>
+						<span className={styles.toolkitLinkText}>{t('toolkit.mortgageCalculator.title')}</span>
 					</Link>
 				</li>
 				<li className={styles.toolkitItem}>
-					<Link to={"mortgage-calculator"} className={styles.toolkitLinkItem}>
-						<span className={styles.toolkitLinkIcon}>💰</span>
-						<span className={styles.toolkitLinkText}>提前还贷计算器</span>
+					<Link to={"investment-dashboard"} className={styles.toolkitLinkItem}>
+						<span className={styles.toolkitLinkIcon}>📈</span>
+						<span className={styles.toolkitLinkText}>{t('toolkit.investmentDashboard.title')}</span>
 					</Link>
 				</li>
 			</ul>

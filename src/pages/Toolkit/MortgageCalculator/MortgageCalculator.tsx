@@ -1,65 +1,66 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import styles from "./mortgage-calculator-page.module.css";
 
-interface RepaymentData {
+interface MonthlyInstalment {
 	idx: number;
-	month: string;
-	repayment: string;
-	principal: number;
-	interest: number;
+	date: string;
+	totalAmount: number;
+	principalPaid: number;
+	interestPaid: number;
 }
 
-interface CalculateResult {
-	before: RepaymentData[];
-	after: RepaymentData[];
+interface RepaymentSchedule {
+	before: MonthlyInstalment[];
+	after: MonthlyInstalment[];
 }
 
-function RepaymentCalculator(): React.ReactElement {
+function MortgageCalculator(): React.ReactElement {
+	const { t } = useTranslation();
+
 	useEffect(() => {
-		document.title = "Mortgage Calculator - hex0x0空间";
-	}, []);
+		document.title = t('toolkit.mortgageCalculator.title') + ' - hex0x0空间';
+	}, [t]);
 
 	const currentDate = new Date();
-	const repaymentDate = new Date(
-		new Date().setMonth(new Date().getMonth() + 2),
+	const defaultExtraPaymentDate = new Date(
+		new Date().setMonth(new Date().getMonth() + 1),
 	);
-	const [loanAmount, setLoanAmount] = useState<string>("");
-	const [loanTerm, setLoanTerm] = useState<string>("");
+	const [mortgageAmount, setMortgageAmount] = useState<string>("");
+	const [mortgageTerm, setMortgageTerm] = useState<string>("");
 	const [interestRate, setInterestRate] = useState<string>("");
-	const [repaymentOption, setRepaymentOption] =
-		useState<string>("fixedPrincipal"); // fixed principal | fixed payment
-	const [repaymentYear, setRepaymentYear] = useState<number>(
-		repaymentDate.getFullYear(),
+	const [mortgageType, setMortgageType] =
+		useState<string>("equalPrincipal");
+	const [extraPaymentDateInput, setExtraPaymentDateInput] = useState<string>(
+		`${defaultExtraPaymentDate.getFullYear()}-${String(defaultExtraPaymentDate.getMonth() + 1).padStart(2, "0")}`,
 	);
-	const [repaymentMonth, setRepaymentMonth] = useState<number>(
-		repaymentDate.getMonth(),
-	);
-	const [repaymentAmount, setRepaymentAmount] = useState<string>("");
+	const [extraPaymentAmount, setExtraPaymentAmount] = useState<string>("");
 	const [newInterestRate, setNewInterestRate] = useState<string>("");
-	const [beforeRepaymentData, setBeforeRepaymentData] = useState<
-		RepaymentData[]
+	const [currentRepaymentSchedule, setCurrentRepaymentSchedule] = useState<
+		MonthlyInstalment[]
 	>([]);
-	const [afterRepaymentData, setAfterRepaymentData] = useState<RepaymentData[]>(
+	const [newRepaymentSchedule, setNewRepaymentSchedule] = useState<MonthlyInstalment[]>(
 		[],
 	);
 	const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
-	function selectLoanType(event: React.ChangeEvent<HTMLInputElement>): void {
-		setRepaymentOption(event.target.value);
+	function selectMortgageType(event: React.ChangeEvent<HTMLInputElement>): void {
+		setMortgageType(event.target.value);
 	}
 
 	function submitHandler(event: React.MouseEvent<HTMLButtonElement>): void {
 		event.preventDefault();
 
-		if (loanAmount === "" || loanTerm === "" || interestRate === "") {
+		if (mortgageAmount === "" || mortgageTerm === "" || interestRate === "") {
 			alert("输入不合法");
 			return;
 		}
 
+		const [year, month] = extraPaymentDateInput.split("-").map(Number);
 		if (
-			Number(repaymentYear) < currentDate.getFullYear() ||
-			(Number(repaymentYear) === currentDate.getFullYear() &&
-				Number(repaymentMonth) <= currentDate.getMonth() + 1)
+			year < currentDate.getFullYear() ||
+			(year === currentDate.getFullYear() &&
+				month <= currentDate.getMonth() + 1)
 		) {
 			alert("提前还贷时间不能早于下月");
 			return;
@@ -67,77 +68,52 @@ function RepaymentCalculator(): React.ReactElement {
 
 		const data = calculate();
 		if (data) {
-			setBeforeRepaymentData(data.before);
-			setAfterRepaymentData(data.after);
+			setCurrentRepaymentSchedule(data.before);
+			setNewRepaymentSchedule(data.after);
 			setIsSubmitted(true);
 		}
 	}
 
-	function calculate(): CalculateResult | undefined {
-		if (repaymentOption === "fixedPrincipal") {
-			let remaingAmount = Number(loanAmount);
-			let remaingMonths = Number(loanTerm);
-			let repaymentMonthsPartA =
-				(repaymentYear - currentDate.getFullYear()) * 12 +
-				(repaymentMonth - currentDate.getMonth() - 1);
-			let rate = interestRate;
-			const before = fixedPrincipal(
-				remaingAmount,
-				remaingMonths,
-				rate,
+	function calculate(): RepaymentSchedule {
+		const [extraPaymentYear, extraPaymentMonth] = extraPaymentDateInput.split("-").map(Number);
+
+		if (mortgageType === "equalPrincipal") {
+			// before extra payment
+			const mortgageAmountNum = Number(mortgageAmount);
+
+			const mortgageTermNum = Number(mortgageTerm);
+
+			const repaymentMonthsBeforeExtraPay =
+				(extraPaymentYear - currentDate.getFullYear()) * 12 +
+				(extraPaymentMonth - currentDate.getMonth() - 1);
+
+			let actualRate = Number(interestRate);
+
+			const before = equalPrincipal(
+				mortgageAmountNum,
+				mortgageTermNum,
+				actualRate,
+				repaymentMonthsBeforeExtraPay,
 				new Date(currentDate),
-				repaymentMonthsPartA,
 			);
 
-			remaingAmount -=
-				(Number(loanAmount) / Number(loanTerm)) * repaymentMonthsPartA;
-			remaingAmount -= Number(repaymentAmount);
-			remaingMonths = Number(loanTerm) - repaymentMonthsPartA;
-			let repaymentMonthsPartB = remaingMonths;
+			// after extra payment
+			const newMortgageAmountNum = mortgageAmountNum - mortgageAmountNum / mortgageTermNum - Number(extraPaymentAmount);
+
+			const newMortgageTermNum = mortgageTermNum - repaymentMonthsBeforeExtraPay;
+
 			if (newInterestRate !== "") {
-				rate = newInterestRate;
+				actualRate = Number(newInterestRate);
 			}
-			const after = fixedPrincipal(
-				remaingAmount,
-				remaingMonths,
-				rate,
-				new Date(repaymentDate.setMonth(repaymentDate.getMonth() + 1)),
-				repaymentMonthsPartB,
-			);
 
-			return {
-				before: before,
-				after: after,
-			};
-		} else if (repaymentOption === "fixedPayment") {
-			let remaingAmount = Number(loanAmount);
-			let remaingMonths = Number(loanTerm);
-			let repaymentMonthsPartA =
-				(repaymentYear - currentDate.getFullYear()) * 12 +
-				(repaymentMonth - currentDate.getMonth() - 1);
-			let rate = interestRate;
-			const before = fixedPayment(
-				remaingAmount,
-				remaingMonths,
-				rate,
-				new Date(currentDate),
-				repaymentMonthsPartA,
-			);
+			const extraPaymentDate = new Date(extraPaymentYear, extraPaymentMonth - 1);
 
-			remaingAmount -=
-				(Number(loanAmount) / Number(loanTerm)) * repaymentMonthsPartA;
-			remaingAmount -= Number(repaymentAmount);
-			remaingMonths = Number(loanTerm) - repaymentMonthsPartA;
-			let repaymentMonthsPartB = remaingMonths;
-			if (newInterestRate !== "") {
-				rate = newInterestRate;
-			}
-			const after = fixedPayment(
-				remaingAmount,
-				remaingMonths,
-				rate,
-				new Date(currentDate),
-				repaymentMonthsPartB,
+			const after = equalPrincipal(
+				newMortgageAmountNum,
+				newMortgageTermNum,
+				actualRate,
+				newMortgageTermNum,
+				new Date(extraPaymentDate.setMonth(extraPaymentDate.getMonth())),
 			);
 
 			return {
@@ -145,123 +121,85 @@ function RepaymentCalculator(): React.ReactElement {
 				after: after,
 			};
 		}
-		return undefined;
+		return { before: [], after: [] };
 	}
 
-	function fixedPrincipal(
-		remaingAmount: number,
-		remaingMonths: number,
-		rate: string,
+	function equalPrincipal(
+		mortgageAmount: number,
+		mortgageTerms: number,
+		rate: number,
+		visibleScheduleMonths: number,
 		currentDate: Date,
-		repaymentMonths: number,
-	): RepaymentData[] {
-		console.log(
-			`remaingAmount=${remaingAmount} remaingMonths=${remaingMonths} currentDate=${currentDate}`,
-		);
+	): MonthlyInstalment[] {
+		console.log(`mortgageAmount=${mortgageAmount} mortgageTerms=${mortgageTerms} currentDate=${currentDate}`);
 
-		let res: RepaymentData[] = [];
+		const res: MonthlyInstalment[] = [];
 
-		for (let i = 0; i < repaymentMonths; i++) {
+		for (let i = 0; i < visibleScheduleMonths; i++) {
 			currentDate.setMonth(currentDate.getMonth() + 1);
 			const year = currentDate.getFullYear();
 			const month = String(currentDate.getMonth() + 1).padStart(2, "0");
 
-			const principalPerMonth = Number(
-				(remaingAmount / remaingMonths).toFixed(2),
-			);
-			const interestPerMonth = Number(
-				((remaingAmount * (Number(rate) / 100)) / 12).toFixed(2),
-			);
+			const principalPaid = Number((mortgageAmount / mortgageTerms).toFixed(2));
+			const interestPaid = Number(((mortgageAmount * (Number(rate) / 100)) / 12).toFixed(2));
 
 			res.push({
 				idx: i + 1,
-				month: `${year}-${month}`,
-				repayment: (
-					Number(principalPerMonth) + Number(interestPerMonth)
-				).toFixed(2),
-				principal: principalPerMonth,
-				interest: interestPerMonth,
+				date: `${year}-${month}`,
+				totalAmount: Number((principalPaid + interestPaid).toFixed(2)),
+				principalPaid: principalPaid,
+				interestPaid: interestPaid,
 			});
 
-			remaingAmount -= principalPerMonth;
-			remaingMonths -= 1;
+			mortgageAmount -= principalPaid;
+			mortgageTerms -= 1;
 		}
 
-		return res;
-	}
-
-	function fixedPayment(
-		remaingAmount: number,
-		remaingMonths: number,
-		rate: string,
-		currentDate: Date,
-		repaymentMonths: number,
-	): RepaymentData[] {
-		let res: RepaymentData[] = [];
-		let monthlyRate = Number(rate) / 100 / 12;
-		let monthlyPayment =
-			(remaingAmount * monthlyRate) /
-			(1 - Math.pow(1 + monthlyRate, -remaingMonths));
-		for (let i = 0; i < repaymentMonths; i++) {
-			currentDate.setMonth(currentDate.getMonth() + 1);
-			const year = currentDate.getFullYear();
-			const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-			const interest = Number((remaingAmount * monthlyRate).toFixed(2));
-			const principal = Number((monthlyPayment - interest).toFixed(2));
-			res.push({
-				idx: i + 1,
-				month: `${year}-${month}`,
-				repayment: monthlyPayment.toFixed(2),
-				principal: principal,
-				interest: interest,
-			});
-			remaingAmount -= principal;
-		}
 		return res;
 	}
 
 	function clearHandler(event: React.MouseEvent<HTMLButtonElement>): void {
 		event.preventDefault();
 
-		setLoanAmount("");
-		setLoanTerm("");
+		setMortgageAmount("");
+		setMortgageTerm("");
 		setInterestRate("");
-		setBeforeRepaymentData([]);
-		setAfterRepaymentData([]);
+		setCurrentRepaymentSchedule([]);
+		setNewRepaymentSchedule([]);
 		setIsSubmitted(false);
 	}
 
 	return (
 		<div className={styles.pageContainer}>
-			<h1 className={styles.title}>提前还贷计算器</h1>
+			<h1 className={styles.title}>{t('toolkit.mortgageCalculator.title')}</h1>
 
 			<form className={styles.calculatorForm}>
 				<div className={styles.container}>
-					<div className={styles.left}>贷款金额</div>
+					<div className={styles.left}>{t('toolkit.mortgageCalculator.mortgageAmount')}</div>
 					<div className={styles.input}>
 						<input
 							className={styles.inputText}
 							type="text"
-							value={loanAmount}
-							onChange={(e) => setLoanAmount(e.target.value)}
+							value={mortgageAmount}
+							onChange={(e) => setMortgageAmount(e.target.value)}
 						></input>
 					</div>
-					<div className={styles.right}>元</div>
+					<div className={styles.right}>{t('toolkit.mortgageCalculator.cny')}</div>
 				</div>
 				<div className={styles.container}>
-					<div className={styles.left}>贷款月数</div>
+					<div className={styles.left}>{t('toolkit.mortgageCalculator.mortgageTerm')}</div>
 					<div className={styles.input}>
 						<input
 							className={styles.inputText}
 							type="text"
-							value={loanTerm}
-							onChange={(e) => setLoanTerm(e.target.value)}
+							value={mortgageTerm}
+							onChange={(e) => setMortgageTerm(e.target.value)}
 						></input>
 					</div>
-					<div className={styles.right}>月</div>
+					<div className={styles.right}>{t('toolkit.mortgageCalculator.months')}</div>
 				</div>
 				<div className={styles.container}>
-					<div className={styles.left}>贷款利率</div>
+					<div className={styles.left}>{t('toolkit.mortgageCalculator.interestRate')}</div>
 					<div className={styles.input}>
 						<input
 							className={styles.inputText}
@@ -273,67 +211,57 @@ function RepaymentCalculator(): React.ReactElement {
 					<div className={styles.right}>%</div>
 				</div>
 				<div className={styles.container}>
-					<div className={styles.left}>还贷方式</div>
+					<div className={styles.left}>{t('toolkit.mortgageCalculator.mortgageType')}</div>
 					<div className={styles.selection}>
 						<label>
 							<input
 								type="radio"
-								value="fixedPrincipal"
-								checked={repaymentOption === "fixedPrincipal"}
-								onChange={selectLoanType}
+								value="equalPrincipal"
+								checked={mortgageType === "equalPrincipal"}
+								onChange={selectMortgageType}
 							/>
-							等额本金
+							{t('toolkit.mortgageCalculator.equalPrincipal')}
 						</label>
 						<label>
 							<input
 								type="radio"
 								value="fixedPayment"
-								checked={repaymentOption === "fixedPayment"}
-								onChange={selectLoanType}
+								checked={mortgageType === "amortization"}
+								onChange={selectMortgageType}
 							/>
-							等额本息
+							{t('toolkit.mortgageCalculator.amortization')}
 						</label>
 					</div>
 				</div>
 				<div className={styles.container}>
-					<div className={styles.left}>提前还贷时间</div>
+					<div className={styles.left}>{t('toolkit.mortgageCalculator.extraPaymentDate')}</div>
 					<div className={styles.input}>
 						<input
 							className={styles.inputText}
-							type="text"
-							value={repaymentYear}
-							onChange={(e) => setRepaymentYear(Number(e.target.value))}
+							type="month"
+							value={extraPaymentDateInput}
+							onChange={(e) => setExtraPaymentDateInput(e.target.value)}
 						></input>
 					</div>
-					<div className={styles.right}>年</div>
-					<div className={styles.input}>
-						<input
-							className={styles.inputText}
-							type="text"
-							value={repaymentMonth}
-							onChange={(e) => setRepaymentMonth(Number(e.target.value))}
-						></input>
-					</div>
-					<div className={styles.right}>月</div>
 				</div>
 				<div className={styles.container}>
-					<div className={styles.left}>提前还贷金额</div>
+					<div className={styles.left}>{t('toolkit.mortgageCalculator.extraPaymentAmount')}</div>
 					<div className={styles.input}>
 						<input
-							placeholder="不填为0"
+							placeholder={t('toolkit.mortgageCalculator.extraPaymentAmountHint')}
 							className={styles.inputText}
 							type="text"
-							value={repaymentAmount}
-							onChange={(e) => setRepaymentAmount(e.target.value)}
+							value={extraPaymentAmount}
+							onChange={(e) => setExtraPaymentAmount(e.target.value)}
 						></input>
 					</div>
-					<div className={styles.right}>元</div>
+					<div className={styles.right}>{t('toolkit.mortgageCalculator.cny')}</div>
 				</div>
 				<div className={styles.container}>
-					<div className={styles.left}>新的贷款利率</div>
+					<div className={styles.left}>{t('toolkit.mortgageCalculator.newInterestRate')}</div>
 					<div className={styles.input}>
 						<input
-							placeholder="不填利率不变"
+							placeholder={t('toolkit.mortgageCalculator.newInterestRateHint')}
 							className={styles.inputText}
 							type="text"
 							value={newInterestRate}
@@ -345,12 +273,12 @@ function RepaymentCalculator(): React.ReactElement {
 				<div className={styles.container}>
 					<div className={styles.button}>
 						<button type="button" onClick={submitHandler}>
-							计算
+							{t('toolkit.mortgageCalculator.calculate')}
 						</button>
 					</div>
 					<div className={styles.button}>
 						<button type="button" onClick={clearHandler}>
-							清空
+							{t('toolkit.mortgageCalculator.clear')}
 						</button>
 					</div>
 				</div>
@@ -358,30 +286,30 @@ function RepaymentCalculator(): React.ReactElement {
 
 			{isSubmitted && (
 				<div className={styles.details}>
-					<h2 className={styles.detailTitle}>还款明细</h2>
+					<h2 className={styles.detailTitle}>{t('toolkit.mortgageCalculator.repaymentSchedule')}</h2>
 					<div>
 						<table className={styles.detailTable}>
 							<thead>
 								<tr>
-									<th>序号</th>
-									<th>还款月份</th>
-									<th>还款金额</th>
-									<th>本金</th>
-									<th>利息</th>
+									<th>{t('toolkit.mortgageCalculator.idx')}</th>
+									<th>{t('toolkit.mortgageCalculator.date')}</th>
+									<th>{t('toolkit.mortgageCalculator.monthlyInstalment')}</th>
+									<th>{t('toolkit.mortgageCalculator.principalPaid')}</th>
+									<th>{t('toolkit.mortgageCalculator.interestPaid')}</th>
 								</tr>
 							</thead>
 							<tbody>
-								{beforeRepaymentData.map((data, index) => (
+								{currentRepaymentSchedule.map((data, index) => (
 									<tr key={index}>
 										<td>{data.idx}</td>
-										<td>{data.month}</td>
-										<td>{data.repayment}</td>
-										<td>{data.principal}</td>
-										<td>{data.interest}</td>
+										<td>{data.date}</td>
+										<td>{data.totalAmount}</td>
+										<td>{data.principalPaid}</td>
+										<td>{data.interestPaid}</td>
 									</tr>
 								))}
 							</tbody>
-							{afterRepaymentData.length > 0 ? (
+							{newRepaymentSchedule.length > 0 ? (
 								<tbody>
 									<tr>
 										<td colSpan={5}>&emsp;&emsp;⬇️提前还贷后新的还款计划⬇️</td>
@@ -391,13 +319,13 @@ function RepaymentCalculator(): React.ReactElement {
 								<></>
 							)}
 							<tbody>
-								{afterRepaymentData.map((data, index) => (
+								{newRepaymentSchedule.map((data, index) => (
 									<tr key={index}>
 										<td>{data.idx}</td>
-										<td>{data.month}</td>
-										<td>{data.repayment}</td>
-										<td>{data.principal}</td>
-										<td>{data.interest}</td>
+										<td>{data.date}</td>
+										<td>{data.totalAmount}</td>
+										<td>{data.principalPaid}</td>
+										<td>{data.interestPaid}</td>
 									</tr>
 								))}
 							</tbody>
@@ -409,4 +337,4 @@ function RepaymentCalculator(): React.ReactElement {
 	);
 }
 
-export default RepaymentCalculator;
+export default MortgageCalculator;
