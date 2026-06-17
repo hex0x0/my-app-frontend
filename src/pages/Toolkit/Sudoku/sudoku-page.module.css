@@ -217,11 +217,14 @@
 
 	.timerContainer {
 		margin: 12px auto;
-		padding: 10px 16px;
+		padding: 8px 12px;
+		gap: 12px;
+		max-width: 280px;
 	}
 
 	.timerLabel {
-		font-size: 1em;
+		font-size: 0.95em;
+		margin-left: 10px;
 	}
 
 	.timerValue {
@@ -269,12 +272,14 @@
 
 	.timerContainer {
 		margin: 10px auto;
-		padding: 8px 14px;
-		gap: 8px;
+		padding: 6px 10px;
+		gap: 6px;
+		max-width: 240px;
 	}
 
 	.timerLabel {
-		font-size: 0.95em;
+		font-size: 0.85em;
+		margin-left: 5px;
 	}
 
 	.timerValue {
