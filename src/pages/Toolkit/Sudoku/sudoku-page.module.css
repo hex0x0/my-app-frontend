@@ -53,14 +53,13 @@
 }
 
 .sudokuGrid {
-	display: inline-block;
+	display: flex;
+	flex-direction: column;
 	margin: 20px auto;
 	border: 3px solid #1a1a1a;
 	border-radius: 4px;
 	background-color: #1a1a1a;
 	width: fit-content;
-	margin-left: 50%;
-	transform: translateX(-50%);
 }
 
 .sudokuRow {
@@ -230,14 +229,10 @@
 		min-width: 55px;
 	}
 
-	.sudokuGrid {
-		transform: translateX(-50%) scale(0.92);
-	}
-
 	.sudokuCell {
-		width: 48px;
-		height: 48px;
-		font-size: 19px;
+		width: 38px;
+		height: 38px;
+		font-size: 16px;
 	}
 
 	.button {
@@ -287,14 +282,10 @@
 		min-width: 50px;
 	}
 
-	.sudokuGrid {
-		transform: translateX(-50%) scale(0.82);
-	}
-
 	.sudokuCell {
-		width: 44px;
-		height: 44px;
-		font-size: 17px;
+		width: 33px;
+		height: 33px;
+		font-size: 15px;
 	}
 
 	.buttonContainer {
