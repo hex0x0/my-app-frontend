@@ -64,6 +64,9 @@
 		"sudoku": {
 			"title": "Sudoku",
 			"timer": "Time",
+			"start": "Start",
+			"pause": "Pause",
+			"resume": "Resume",
 			"refresh": "Refresh",
 			"submit": "Submit",
 			"clear": "Clear",

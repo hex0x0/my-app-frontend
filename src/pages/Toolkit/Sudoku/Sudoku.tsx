@@ -18,6 +18,10 @@ function Sudoku(): React.ReactElement {
 	const [puzzleStartTime, setPuzzleStartTime] = useState<number>(0);
 	const [elapsedTime, setElapsedTime] = useState<number>(0);
 	const [isSolved, setIsSolved] = useState<boolean>(false);
+	const [isPaused, setIsPaused] = useState<boolean>(false);
+	const [pausedTime, setPausedTime] = useState<number>(0);
+	const [pauseStartTime, setPauseStartTime] = useState<number>(0);
+	const [isTimerStarted, setIsTimerStarted] = useState<boolean>(false);
 
 	useEffect(() => {
 		document.title = t('toolkit.sudoku.title') + ' - hex0x0空间';
@@ -32,14 +36,14 @@ function Sudoku(): React.ReactElement {
 			const remaining = Math.max(0, 60000 - elapsed);
 			setTimeUntilRefresh(remaining);
 
-			// Update puzzle timer if not solved
-			if (!isSolved && puzzleStartTime > 0) {
-				setElapsedTime(Math.floor((now - puzzleStartTime) / 1000));
+			// Update puzzle timer if timer has started, not solved, and not paused
+			if (!isSolved && puzzleStartTime > 0 && !isPaused && isTimerStarted) {
+				setElapsedTime(Math.floor((now - puzzleStartTime - pausedTime) / 1000));
 			}
 		}, 100);
 
 		return () => clearInterval(interval);
-	}, [lastRefreshTime, isSolved, puzzleStartTime]);
+	}, [lastRefreshTime, isSolved, puzzleStartTime, isPaused, pausedTime, isTimerStarted]);
 
 	// Generate a complete valid Sudoku solution
 	function generateSolution(): number[][] {
@@ -130,6 +134,9 @@ function Sudoku(): React.ReactElement {
 		setPuzzleStartTime(Date.now());
 		setElapsedTime(0);
 		setIsSolved(false);
+		setIsPaused(false);
+		setPausedTime(0);
+		setIsTimerStarted(false);
 		setMessage("");
 	}
 
@@ -209,6 +216,27 @@ function Sudoku(): React.ReactElement {
 		setMessage("");
 	}
 
+	function handleStartPauseResume(): void {
+		if (isSolved) return;
+
+		if (!isTimerStarted) {
+			// Start the timer
+			setPuzzleStartTime(Date.now());
+			setIsTimerStarted(true);
+			setIsPaused(false);
+		} else if (isPaused) {
+			// Resume: add the pause duration to total paused time
+			const now = Date.now();
+			const pauseDuration = now - pauseStartTime;
+			setPausedTime(pausedTime + pauseDuration);
+			setIsPaused(false);
+		} else {
+			// Pause: record the start time
+			setPauseStartTime(Date.now());
+			setIsPaused(true);
+		}
+	}
+
 	function formatTime(seconds: number): string {
 		const mins = Math.floor(seconds / 60);
 		const secs = seconds % 60;
@@ -223,6 +251,14 @@ function Sudoku(): React.ReactElement {
 			<h1 className={styles.title}>{t('toolkit.sudoku.title')}</h1>
 
 			<div className={styles.timerContainer}>
+				<button
+					type="button"
+					onClick={handleStartPauseResume}
+					disabled={isSolved}
+					className={styles.button}
+				>
+					{!isTimerStarted ? t('toolkit.sudoku.start') : isPaused ? t('toolkit.sudoku.resume') : t('toolkit.sudoku.pause')}
+				</button>
 				<span className={styles.timerLabel}>{t('toolkit.sudoku.timer')}:</span>
 				<span className={styles.timerValue}>{formatTime(elapsedTime)}</span>
 			</div>
@@ -277,8 +313,8 @@ function Sudoku(): React.ReactElement {
 			{message && (
 				<div
 					className={`${styles.message} ${message.includes(t('toolkit.sudoku.success')) ? styles.successMessage :
-							message.includes(t('toolkit.sudoku.hasErrors')) ? styles.errorMessage :
-								styles.infoMessage
+						message.includes(t('toolkit.sudoku.hasErrors')) ? styles.errorMessage :
+							styles.infoMessage
 						}`}
 				>
 					{message}
