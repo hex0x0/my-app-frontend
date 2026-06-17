@@ -17,4 +17,3 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=node /app/dist /usr/share/nginx/html
 RUN unlink /var/log/nginx/access.log
 RUN unlink /var/log/nginx/error.log
-

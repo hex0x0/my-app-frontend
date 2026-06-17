@@ -60,8 +60,27 @@
 		},
 		"investmentDashboard": {
 			"title": "投资看板 (WIP)"
+		},
+		"sudoku": {
+			"title": "数独",
+			"timer": "用时",
+			"refresh": "刷新",
+			"submit": "提交",
+			"clear": "清空",
+			"refreshCooldown": "请等待 {{seconds}} 秒后再刷新",
+			"refreshSuccess": "已生成新的数独！",
+			"incomplete": "请在提交前填写所有格子",
+			"hasErrors": "部分格子不正确（红色高亮显示）",
+			"success": "🎉 恭喜你！成功解开了数独！",
+			"successWithTime": "🎉 恭喜你！成功解开了数独！用时：{{time}} ",
+			"howToPlay": "游戏规则",
+			"instruction1": "每行填入数字1-9（不能重复）",
+			"instruction2": "每列填入数字1-9（不能重复）",
+			"instruction3": "每个3×3宫格填入数字1-9（不能重复）",
+			"instruction4": "点击刷新获取新的数独（每分钟一次）"
 		}
 	},
+	"selectMonth": "选择月份",
 	"calendarSelect": {
 		"january": "一月",
 		"february": "二月",

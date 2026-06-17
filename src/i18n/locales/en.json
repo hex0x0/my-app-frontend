@@ -60,8 +60,27 @@
 		},
 		"investmentDashboard": {
 			"title": "Investment Dashboard (WIP)"
+		},
+		"sudoku": {
+			"title": "Sudoku",
+			"timer": "Time",
+			"refresh": "Refresh",
+			"submit": "Submit",
+			"clear": "Clear",
+			"refreshCooldown": "Please wait {{seconds}} seconds before refreshing",
+			"refreshSuccess": "New puzzle generated!",
+			"incomplete": "Please fill in all cells before submitting",
+			"hasErrors": "Some cells are incorrect (highlighted in red)",
+			"success": "🎉 Congratulations! You solved the puzzle!",
+			"successWithTime": "🎉 Congratulations! You solved the puzzle in {{time}}!",
+			"howToPlay": "How to Play",
+			"instruction1": "Fill each row with numbers 1-9 (no duplicates)",
+			"instruction2": "Fill each column with numbers 1-9 (no duplicates)",
+			"instruction3": "Fill each 3×3 box with numbers 1-9 (no duplicates)",
+			"instruction4": "Click Refresh for a new puzzle (once per minute)"
 		}
 	},
+	"selectMonth": "Select month",
 	"calendarSelect": {
 		"january": "January",
 		"february": "February",

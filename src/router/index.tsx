@@ -7,6 +7,7 @@ import About from "@/pages/About/About";
 import Toolkit from "@/pages/Toolkit/Toolkit";
 import MortgageCalculator from "@/pages/Toolkit/MortgageCalculator/MortgageCalculator";
 import InvestmentDashboard from "@/pages/Toolkit/InvestmentDashboard/InvestmentDashboard";
+import Sudoku from "@/pages/Toolkit/Sudoku/Sudoku";
 import Login from "@/pages/Login/Login";
 import NotFound from "@/pages/NotFound/NotFound";
 // import RequireAuth from "modules/account/RequireAuth";
@@ -27,6 +28,7 @@ export default function MainRouter(): React.ReactElement {
 				<Route index element={<Toolkit />} />
 				<Route path="mortgage-calculator" element={<MortgageCalculator />} />
 				<Route path="investment-dashboard" element={<InvestmentDashboard />} />
+				<Route path="sudoku" element={<Sudoku />} />
 			</Route>
 			<Route path="login" element={<Login />} />
 			<Route path="*" element={<NotFound />} />

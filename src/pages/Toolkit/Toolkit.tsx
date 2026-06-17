@@ -21,6 +21,12 @@ export default function Toolkit(): React.ReactElement {
 					</Link>
 				</li>
 				<li className={styles.toolkitItem}>
+					<Link to={"sudoku"} className={styles.toolkitLinkItem}>
+						<span className={styles.toolkitLinkIcon}>🔢</span>
+						<span className={styles.toolkitLinkText}>{t('toolkit.sudoku.title')}</span>
+					</Link>
+				</li>
+				<li className={styles.toolkitItem}>
 					<Link to={"investment-dashboard"} className={styles.toolkitLinkItem}>
 						<span className={styles.toolkitLinkIcon}>📈</span>
 						<span className={styles.toolkitLinkText}>{t('toolkit.investmentDashboard.title')}</span>
