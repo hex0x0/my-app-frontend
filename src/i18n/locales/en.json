@@ -31,6 +31,21 @@
 		"softwareEngineer": "Software Engineer",
 		"selfEmployment": "Self-employment"
 	},
+	"login": {
+		"title": "Login - hex0x0空间",
+		"heading": "Login",
+		"name": "Name",
+		"password": "Password",
+		"namePlaceholder": "Enter your name",
+		"passwordPlaceholder": "Enter your password",
+		"loginButton": "Login",
+		"loggingIn": "Logging in...",
+		"loginSuccess": "Login successful!",
+		"errorNoName": "Please enter your name",
+		"errorNoPassword": "Please enter your password",
+		"errorNoToken": "Login failed: No token received",
+		"errorDefault": "Login failed. Please try again."
+	},
 	"toolkit": {
 		"title": "$t(nav.toolkit) - hex0x0空间",
 		"heading": "Toolkit",

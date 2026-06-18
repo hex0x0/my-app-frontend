@@ -1,28 +1,26 @@
 .loginContainer {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-	padding: 20px;
-}
-
-.loginBox {
-	background: white;
-	border-radius: 12px;
-	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-	padding: 40px;
-	width: 100%;
-	max-width: 420px;
+	width: 33.33vw;
+	min-width: 500px;
+	padding: 20px 40px 40px 40px;
+	margin: 0 auto;
+	margin-top: 20px;
+	box-shadow:
+		0 4px 6px rgba(0, 0, 0, 0.1),
+		0 1px 3px rgba(0, 0, 0, 0.08),
+		0 0 0 1px rgba(0, 0, 0, 0.05);
+	border-radius: 8px;
+	box-sizing: border-box;
+	background-color: #ffffff;
 }
 
 .loginTitle {
-	font-size: 28px;
-	font-weight: 700;
-	color: #333;
-	text-align: center;
-	margin-bottom: 30px;
+	font-size: 1.8em;
+	font-weight: bold;
 	margin-top: 0;
+	margin-bottom: 0.8em;
+	padding-bottom: 0.3em;
+	border-bottom: 2px solid #eaecef;
+	color: #1a1a1a;
 }
 
 .loginForm {
@@ -54,7 +52,7 @@
 }
 
 .input:focus {
-	border-color: #667eea;
+	border-color: #0366d6;
 }
 
 .input:disabled {
@@ -71,19 +69,21 @@
 	font-size: 16px;
 	font-weight: 600;
 	color: white;
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background-color: #0366d6;
 	border: none;
 	border-radius: 8px;
 	cursor: pointer;
 	transition:
 		transform 0.2s ease,
-		box-shadow 0.2s ease;
+		box-shadow 0.2s ease,
+		background-color 0.2s ease;
 	margin-top: 10px;
 }
 
 .submitButton:hover:not(:disabled) {
+	background-color: #0256c2;
 	transform: translateY(-2px);
-	box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+	box-shadow: 0 4px 12px rgba(3, 102, 214, 0.3);
 }
 
 .submitButton:active:not(:disabled) {
@@ -115,12 +115,48 @@
 	text-align: center;
 }
 
-@media (max-width: 480px) {
-	.loginBox {
-		padding: 30px 20px;
+@media (max-width: 768px) {
+	.loginContainer {
+		width: calc(100% - 30px);
+		min-width: unset;
+		padding: 16px 20px 30px 20px;
+		margin-top: 12px;
 	}
 
 	.loginTitle {
-		font-size: 24px;
+		font-size: 1.4em;
+	}
+
+	.input {
+		font-size: 14px;
+		padding: 10px 14px;
+	}
+
+	.submitButton {
+		font-size: 15px;
+		padding: 12px 20px;
+	}
+}
+
+@media (max-width: 480px) {
+	.loginContainer {
+		width: calc(100% - 20px);
+		padding: 14px 14px 24px 14px;
+		margin-top: 10px;
+		border-radius: 6px;
+	}
+
+	.loginTitle {
+		font-size: 1.2em;
+	}
+
+	.input {
+		font-size: 14px;
+		padding: 10px 12px;
+	}
+
+	.submitButton {
+		font-size: 14px;
+		padding: 12px 18px;
 	}
 }

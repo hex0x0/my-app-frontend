@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { login, storeAuthToken } from "@/api/auth-api";
 import styles from "./login-page.module.css";
 
@@ -8,11 +9,16 @@ import styles from "./login-page.module.css";
  */
 const Login: React.FC = () => {
 	const navigate = useNavigate();
+	const { t } = useTranslation();
 	const [name, setName] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [success, setSuccess] = useState(false);
+
+	useEffect(() => {
+		document.title = t("login.title");
+	}, [t]);
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -21,12 +27,12 @@ const Login: React.FC = () => {
 
 		// Validation
 		if (!name.trim()) {
-			setError("Please enter your name");
+			setError(t("login.errorNoName"));
 			return;
 		}
 
 		if (!password.trim()) {
-			setError("Please enter your password");
+			setError(t("login.errorNoPassword"));
 			return;
 		}
 
@@ -59,12 +65,12 @@ const Login: React.FC = () => {
 					}
 				}, 500);
 			} else {
-				setError("Login failed: No token received");
+				setError(t("login.errorNoToken"));
 			}
 		} catch (err) {
 			// Handle error
 			const errorMessage =
-				err instanceof Error ? err.message : "Login failed. Please try again.";
+				err instanceof Error ? err.message : t("login.errorDefault");
 			setError(errorMessage);
 			setSuccess(false);
 		} finally {
@@ -74,57 +80,55 @@ const Login: React.FC = () => {
 
 	return (
 		<div className={styles.loginContainer}>
-			<div className={styles.loginBox}>
-				<h1 className={styles.loginTitle}>Login</h1>
+			<h1 className={styles.loginTitle}>{t("login.heading")}</h1>
 
-				<form onSubmit={handleSubmit} className={styles.loginForm}>
-					<div className={styles.formGroup}>
-						<label htmlFor="name" className={styles.label}>
-							Name
-						</label>
-						<input
-							type="text"
-							id="name"
-							value={name}
-							onChange={(e) => setName(e.target.value)}
-							className={styles.input}
-							placeholder="Enter your name"
-							disabled={loading}
-							autoComplete="username"
-						/>
-					</div>
-
-					<div className={styles.formGroup}>
-						<label htmlFor="password" className={styles.label}>
-							Password
-						</label>
-						<input
-							type="password"
-							id="password"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-							className={styles.input}
-							placeholder="Enter your password"
-							disabled={loading}
-							autoComplete="current-password"
-						/>
-					</div>
-
-					{error && <div className={styles.errorMessage}>{error}</div>}
-
-					{success && (
-						<div className={styles.successMessage}>Login successful!</div>
-					)}
-
-					<button
-						type="submit"
-						className={styles.submitButton}
+			<form onSubmit={handleSubmit} className={styles.loginForm}>
+				<div className={styles.formGroup}>
+					<label htmlFor="name" className={styles.label}>
+						{t("login.name")}
+					</label>
+					<input
+						type="text"
+						id="name"
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+						className={styles.input}
+						placeholder={t("login.namePlaceholder")}
 						disabled={loading}
-					>
-						{loading ? "Logging in..." : "Login"}
-					</button>
-				</form>
-			</div>
+						autoComplete="username"
+					/>
+				</div>
+
+				<div className={styles.formGroup}>
+					<label htmlFor="password" className={styles.label}>
+						{t("login.password")}
+					</label>
+					<input
+						type="password"
+						id="password"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						className={styles.input}
+						placeholder={t("login.passwordPlaceholder")}
+						disabled={loading}
+						autoComplete="current-password"
+					/>
+				</div>
+
+				{error && <div className={styles.errorMessage}>{error}</div>}
+
+				{success && (
+					<div className={styles.successMessage}>{t("login.loginSuccess")}</div>
+				)}
+
+				<button
+					type="submit"
+					className={styles.submitButton}
+					disabled={loading}
+				>
+					{loading ? t("login.loggingIn") : t("login.loginButton")}
+				</button>
+			</form>
 		</div>
 	);
 };

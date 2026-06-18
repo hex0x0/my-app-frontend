@@ -31,6 +31,21 @@
 		"softwareEngineer": "软件开发工程师",
 		"selfEmployment": "自由职业"
 	},
+	"login": {
+		"title": "登录 - hex0x0空间",
+		"heading": "登录",
+		"name": "用户名",
+		"password": "密码",
+		"namePlaceholder": "请输入用户名",
+		"passwordPlaceholder": "请输入密码",
+		"loginButton": "登录",
+		"loggingIn": "登录中...",
+		"loginSuccess": "登录成功！",
+		"errorNoName": "请输入用户名",
+		"errorNoPassword": "请输入密码",
+		"errorNoToken": "登录失败：未收到令牌",
+		"errorDefault": "登录失败，请重试。"
+	},
 	"toolkit": {
 		"title": "$t(nav.toolkit) - hex0x0空间",
 		"heading": "工具箱",
