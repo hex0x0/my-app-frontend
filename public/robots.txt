@@ -1,12 +1,7 @@
 # https://www.robotstxt.org/robotstxt.html
-User-agent: Googlebot-Image
-Disallow:
-
-User-agent: Googlebot
-Disallow:
-
-User-agent: Bingbot
-Disallow:
-
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /login
+
+# Sitemap
+Sitemap: https://hex0x0.site/sitemap.xml
