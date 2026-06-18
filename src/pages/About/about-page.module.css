@@ -147,6 +147,48 @@
 	letter-spacing: 0.3px;
 }
 
+/* Tablets (iPad Mini, iPad Air, iPad Pro) */
+@media (min-width: 769px) and (max-width: 1366px) {
+	.aboutContainer {
+		width: 65vw;
+		min-width: unset;
+		padding: 28px 50px 50px 50px;
+	}
+
+	.aboutSectionTitle {
+		font-size: 2.2em;
+	}
+
+	.timelineDate {
+		font-size: 18px;
+	}
+
+	.timelineCompany {
+		font-size: 28px;
+	}
+
+	.timelineRole {
+		font-size: 20px;
+	}
+
+	.timelineContent {
+		padding: 24px 28px;
+	}
+
+	.contactItem {
+		font-size: 24px;
+	}
+
+	.contactIcon .label {
+		font-size: 24px;
+		min-width: 80px;
+	}
+
+	.contactLink {
+		font-size: 24px;
+	}
+}
+
 @media (max-width: 768px) {
 	.aboutContainer {
 		width: calc(100% - 30px);

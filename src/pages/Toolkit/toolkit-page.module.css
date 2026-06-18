@@ -67,6 +67,32 @@
 	font-weight: 600;
 }
 
+/* Tablets (iPad Mini, iPad Air, iPad Pro) */
+@media (min-width: 769px) and (max-width: 1366px) {
+	.toolkitContainer {
+		width: 65vw;
+		min-width: unset;
+		padding: 28px 50px 50px 50px;
+	}
+
+	.toolkitTitle {
+		font-size: 2.2em;
+	}
+
+	.toolkitLinkItem {
+		padding: 18px 24px;
+	}
+
+	.toolkitLinkIcon {
+		font-size: 1.8em;
+		margin-right: 18px;
+	}
+
+	.toolkitLinkText {
+		font-size: 1.4em;
+	}
+}
+
 @media (max-width: 768px) {
 	.toolkitContainer {
 		width: calc(100% - 30px);

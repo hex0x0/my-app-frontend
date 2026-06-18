@@ -75,6 +75,37 @@
 	color: #6a737d;
 }
 
+/* Tablets (iPad Mini, iPad Air, iPad Pro) */
+@media (min-width: 769px) and (max-width: 1366px) {
+	.blogIndexContainer {
+		width: 65vw;
+		min-width: unset;
+		padding: 28px 50px 50px 50px;
+	}
+
+	.blogIndexTitle {
+		font-size: 2.2em;
+	}
+
+	.blogItemLink {
+		padding: 18px 24px;
+	}
+
+	.blogItemTitle {
+		font-size: 1.4em;
+	}
+
+	.blogItemTitle::before {
+		margin-right: 14px;
+		font-size: 1.2em;
+	}
+
+	.blogItemMeta {
+		margin-top: 10px;
+		font-size: 1em;
+	}
+}
+
 @media (max-width: 768px) {
 	.blogIndexContainer {
 		width: calc(100% - 30px);

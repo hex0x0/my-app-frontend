@@ -34,6 +34,24 @@
 	margin: 40px 0;
 }
 
+/* Tablets (iPad Mini, iPad Air, iPad Pro) */
+@media (min-width: 769px) and (max-width: 1366px) {
+	.pageContainer {
+		width: 65vw;
+		min-width: unset;
+		padding: 28px 50px 50px 50px;
+	}
+
+	.title {
+		font-size: 2.2em;
+	}
+
+	.message {
+		font-size: 1.5em;
+		margin: 50px 0;
+	}
+}
+
 @media (max-width: 768px) {
 	.pageContainer {
 		width: calc(100% - 30px);

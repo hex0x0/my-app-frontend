@@ -203,6 +203,61 @@
 	line-height: 1.6;
 }
 
+/* Tablets (iPad Mini, iPad Air, iPad Pro) */
+@media (min-width: 769px) and (max-width: 1366px) {
+	.pageContainer {
+		width: 70vw;
+		min-width: unset;
+		padding: 28px 50px 50px 50px;
+	}
+
+	.title {
+		font-size: 2.2em;
+	}
+
+	.timerContainer {
+		padding: 16px 12px;
+		gap: 24px;
+		max-width: 420px;
+	}
+
+	.timerLabel {
+		font-size: 1.3em;
+		margin-left: 35px;
+	}
+
+	.timerValue {
+		font-size: 1.6em;
+		min-width: 75px;
+	}
+
+	.sudokuCell {
+		width: 48px;
+		height: 48px;
+		font-size: 20px;
+	}
+
+	.button {
+		padding: 12px 24px;
+		font-size: 18px;
+		min-width: 110px;
+	}
+
+	.message {
+		font-size: 18px;
+		padding: 16px 20px;
+	}
+
+	.instructions {
+		padding: 24px;
+		font-size: 18px;
+	}
+
+	.instructions h3 {
+		font-size: 1.4em;
+	}
+}
+
 @media (max-width: 768px) {
 	.pageContainer {
 		width: calc(100% - 20px);

@@ -31,6 +31,17 @@
 	text-decoration: underline;
 }
 
+/* Tablets (iPad Mini, iPad Air, iPad Pro) */
+@media (min-width: 769px) and (max-width: 1366px) {
+	.title {
+		font-size: 80px;
+	}
+
+	.subtitle {
+		font-size: 22px;
+	}
+}
+
 @media (max-width: 480px) {
 	.title {
 		font-size: 48px;

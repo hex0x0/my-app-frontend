@@ -115,6 +115,39 @@
 	text-align: center;
 }
 
+/* Tablets (iPad Mini, iPad Air, iPad Pro) */
+@media (min-width: 769px) and (max-width: 1366px) {
+	.loginContainer {
+		width: 65vw;
+		min-width: unset;
+		padding: 28px 50px 50px 50px;
+	}
+
+	.loginTitle {
+		font-size: 2.2em;
+	}
+
+	.label {
+		font-size: 18px;
+	}
+
+	.input {
+		padding: 16px 20px;
+		font-size: 18px;
+	}
+
+	.submitButton {
+		font-size: 20px;
+		padding: 18px 32px;
+	}
+
+	.errorMessage,
+	.successMessage {
+		font-size: 18px;
+		padding: 16px 20px;
+	}
+}
+
 @media (max-width: 768px) {
 	.loginContainer {
 		width: calc(100% - 30px);

@@ -180,6 +180,55 @@
 	background-color: #f6f8fa;
 }
 
+/* Tablets (iPad Mini, iPad Air, iPad Pro) */
+@media (min-width: 769px) and (max-width: 1366px) {
+	.pageContainer {
+		width: 65vw;
+		min-width: unset;
+		padding: 28px 50px 50px 50px;
+	}
+
+	.title {
+		font-size: 2.2em;
+	}
+
+	.left {
+		min-width: 220px;
+		font-size: 18px;
+	}
+
+	.inputText {
+		padding: 12px 16px;
+		font-size: 18px;
+	}
+
+	.selection label {
+		font-size: 18px;
+	}
+
+	.right {
+		font-size: 18px;
+	}
+
+	.button button {
+		padding: 14px 36px;
+		font-size: 20px;
+	}
+
+	.detailTitle {
+		font-size: 1.8em;
+	}
+
+	.detailTable {
+		font-size: 16px;
+	}
+
+	.detailTable th,
+	.detailTable td {
+		padding: 14px 12px;
+	}
+}
+
 @media (max-width: 768px) {
 	.pageContainer {
 		width: calc(100% - 30px);
